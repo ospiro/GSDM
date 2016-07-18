@@ -12,24 +12,23 @@ Option::Option()
 	desc.add_options()
 		("help", "Print help messages")
 		("prefix", value<string>(&prefix)->default_value("../data"), "[string] data folder prefix")
-		("prefix-graph", value<string>(&subFolderGraph)->default_value(string("graph/")), "the subfolder for graph files")
-		("npi", value<int>(&nPosInd)->default_value(10), "[integer] number of positive individuals")
-		("nni", value<int>(&nNegInd)->default_value(10), "[integer] number of negative individuals")
-		("npm", value<int>(&nPosMtf)->default_value(10), "[integer] number of positive motifs")
-		("nnm", value<int>(&nNegMtf)->default_value(10), "[integer] number of negative motifs")
+		("prefix-graph", value<string>(&subFolderGraph)->default_value(string("graph/")), "[string] the subfolder for graph files")
+		("out", value<string>(&subFolderOut)->default_value(string("out-")), "[string] the file name prefix for output files")
+		("blacklist", value<vector<int>>(&blacklist)->multitoken()->default_value(vector<int>(),""),"[integer]s of individuals removed")
+		("npi", value<int>(&nPosInd)->default_value(10), "[integer] number of positive individuals (negative means read all)")
+		("nni", value<int>(&nNegInd)->default_value(10), "[integer] number of negative individuals (negative means read all)")
 		("ns", value<int>(&nSnapshot)->default_value(10), "[integer] number of snapshots, non-positive means load all")
-		("n", value<int>(&nNode)->default_value(-1), "size of each graph")
+		("n", value<int>(&nNode)->default_value(-1), "[integer] size of each graph")
 //		("smmin", value<int>(&sMotifMin)->default_value(2), "[integer] minimum size of a motif")
 //		("smmax", value<int>(&sMotifMax)->default_value(2), "[integer] maximum size of a motif")
 //		("pmi", value<double>(&pMotifInd)->default_value(0.3), "[double] the min prob. of treating "
 //			"a motif as existed on a individual (num over snapshot)")
-		(CandidateMethodFactory::getOptName().c_str(), value<vector<string>>(&mtdParam)->multitoken(), CandidateMethodFactory::getUsage().c_str())
-//		("strategy", value<string>(&stgName)->default_value(string("Freq")), "name of the searching strategy")
+		(CandidateMethodFactory::optName.c_str(), value<vector<string>>(&mtdParam)->multitoken(), CandidateMethodFactory::getUsage().c_str())
+//		("topk", value<int>(&topK)->default_value(10), "number of returned results")
 //		("pmr", value<double>(&pMotifRef)->default_value(0.8), "[double] the min prob. of treating "
 //			"a motif as existed all on individual (num over individual)")
-		(StrategyFactory::getOptName().c_str(), value<vector<string>>(&stgParam)->multitoken(), StrategyFactory::getUsage().c_str())
-		("topk", value<int>(&topK)->default_value(10), "number of returned results");
-
+		(StrategyFactory::optName.c_str(), value<vector<string>>(&stgParam)->multitoken(), StrategyFactory::getUsage().c_str())
+		;
 }
 
 
@@ -57,11 +56,14 @@ bool Option::parseInput(int argc, char * argv[])
 			boost::program_options::parse_command_line(argc, argv, desc), var_map);
 		boost::program_options::notify(var_map);
 
-		if(!prefix.empty() && prefix.back()!='/') {
+		if(!prefix.empty() && prefix.back()!='/' && prefix.back() != '\\') {
 			prefix.push_back('/');
 		}
-		if(!subFolderGraph.empty() && subFolderGraph.back() != '/') {
+		if(!subFolderGraph.empty() && subFolderGraph.back() != '/' && subFolderGraph.back() != '\\') {
 			subFolderGraph.push_back('/');
+		}
+		if(!subFolderOut.empty() && subFolderOut.back() != '/' && subFolderOut.back() != '\\') {
+			subFolderOut.push_back('/');
 		}
 		do {
 			if(var_map.count("help")) {
@@ -86,6 +88,8 @@ bool Option::parseInput(int argc, char * argv[])
 			}
 
 		} while(false);
+
+		sort(blacklist.begin(), blacklist.end());
 
 	} catch(std::exception& excep) {
 		cerr << "error: " << excep.what() << "\n";

@@ -18,6 +18,12 @@
     <Filter Include="Method\Source">
       <UniqueIdentifier>{951be530-4fcd-4483-bcf6-a3c63f421cf6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Strategies\Source">
+      <UniqueIdentifier>{72e1f70d-7819-41de-b646-442980977487}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Serialization">
+      <UniqueIdentifier>{5998694e-5f8e-46e7-8c6c-8f076f16ccb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -38,9 +44,6 @@
     <ClInclude Include="Subject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IOfunctions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="StrategyCandidate.h">
       <Filter>Strategies</Filter>
     </ClInclude>
@@ -59,14 +62,32 @@
     <ClInclude Include="StrategySample.h">
       <Filter>Strategies</Filter>
     </ClInclude>
-    <ClInclude Include="StrategyBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ComplexParamBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="StrategyFactory.h">
       <Filter>Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryProductTemplate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryTemplate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IOfunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StrategyBase.h">
+      <Filter>Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="StrategyParaFreqPmN.h">
+      <Filter>Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="serialization.h">
+      <Filter>Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="StrategyXor.h">
+      <Filter>Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="MotifCommunicator.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -91,12 +112,6 @@
     <ClCompile Include="IOfunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StrategyCandidatePN.cpp">
-      <Filter>Strategies</Filter>
-    </ClCompile>
-    <ClCompile Include="StrategyCandidate.cpp">
-      <Filter>Strategies</Filter>
-    </ClCompile>
     <ClCompile Include="CandidateMethod.cpp">
       <Filter>Method\Source</Filter>
     </ClCompile>
@@ -115,23 +130,42 @@
     <ClCompile Include="CandidateMthdFreq-edge.cpp">
       <Filter>Method\Source</Filter>
     </ClCompile>
-    <ClCompile Include="StrategySample.cpp">
-      <Filter>Strategies</Filter>
+    <ClCompile Include="FactoryProductTemplate.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Subject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StrategyBase.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Strategies\Source</Filter>
     </ClCompile>
-    <ClCompile Include="ComplexParamBase.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="StrategyCandidate.cpp">
+      <Filter>Strategies\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="StrategyCandidatePN.cpp">
+      <Filter>Strategies\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="StrategySample.cpp">
+      <Filter>Strategies\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="StrategyParaFreqPmN.cpp">
+      <Filter>Strategies\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="serialization.cpp">
+      <Filter>Serialization</Filter>
     </ClCompile>
     <ClCompile Include="StrategyFactory.cpp">
-      <Filter>Strategies</Filter>
+      <Filter>Strategies\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="StrategyXor.cpp">
+      <Filter>Strategies\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MotifCommunicator.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.md" />
+    <None Include="makefile" />
   </ItemGroup>
 </Project>

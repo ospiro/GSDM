@@ -3,62 +3,32 @@
 
 // include conclude strategies:
 #include "CandidateMthdFreq.h"
-//#include "CandidateMthdInfreq.h"
 
 using namespace std;
 
-const std::string CandidateMethodFactory::optName("method");
-const std::string CandidateMethodFactory::usagePrefix(
+using parent_t = CandidateMethodFactory::parent_t;
+
+template <>
+const std::string parent_t::optName("method");
+template <>
+const std::string parent_t::usagePrefix(
 	"Use the following parameters to select ONE searching method\n");
 
-std::map<std::string, CandidateMethodFactory::createFun> CandidateMethodFactory::contGen{};
-std::map<std::string, std::string> CandidateMethodFactory::contUsage{};
-
-bool CandidateMethodFactory::isValid(const std::string & name)
-{
-	return contGen.find(name) != contGen.end();
-}
+template <>
+std::map<std::string, parent_t::createFun> parent_t::contGen{};
+template <>
+std::map<std::string, std::string> parent_t::contUsage{};
 
 void CandidateMethodFactory::init()
 {
-	registerClass<CandidateMthdFreq>();
-	registerUsage<CandidateMthdFreq>();
-	// TODO: add new strategy here
-//	registerClass<CandidateMthdInfreq>();
+// TODO: add new strategy here
+	registerInOne<CandidateMthdFreq>();
+//	registerInOne<CandidateMthdInfreq>();
 }
 
-void CandidateMethodFactory::registerUsage(const std::string& name, const std::string& usage)
+CandidateMethod * CandidateMethodFactory::generate(const std::string & name)
 {
-	contUsage[name] = usage;
-}
-
-std::string CandidateMethodFactory::getOptName()
-{
-	return optName;
-}
-
-std::string CandidateMethodFactory::getUsage()
-{
-	string res = usagePrefix;
-	int cnt = 0;
-	for(const auto& usg : contUsage) {
-		res += "Method " + to_string(++cnt) + ": " + usg.first
-			+ "\n" + usg.second + "\n";
-	}
+	FactoryProductTemplate* p = parent_t::generate(name);
+	CandidateMethod* res = dynamic_cast<CandidateMethod*>(p);
 	return res;
-}
-
-
-CandidateMethod * CandidateMethodFactory::generate(const std::string & methodName)
-{
-	CandidateMethod* res = nullptr;
-	if(isValid(methodName)) {
-		res = contGen.at(methodName)();
-	}
-	return res;
-}
-
-CandidateMethod * CandidateMethodFactory::generate(const CandidateMethodParam & methodParam)
-{
-	return generate(methodParam.name);
 }

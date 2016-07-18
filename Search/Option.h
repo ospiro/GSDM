@@ -8,22 +8,18 @@ class Option
 	std::vector<std::function<bool()>> paramParser;
 public:
 	
-//	int sMotifMin, sMotifMax;//min and max size of a motif
-//	double pMotifInd;
 	std::vector<std::string> mtdParam;
+	std::vector<std::string> stgParam;
 
 	int nNode;//number of nodes;
 	int nPosInd, nNegInd;//number of +/- individuals
-	int nPosMtf, nNegMtf;//number of +/- motifs
 	int nSnapshot;//number of snapshots for each individual
 
+	std::vector<int> blacklist;
+
 	std::string prefix, subFolderGraph;//data folder prefix and graph sub-folder
+	std::string subFolderOut;//the file name prefix for output files
 
-//	std::string stgName;//name of the searching strategy
-//	double pMotifRef;//minimum probability of a motif
-	std::vector<std::string> stgParam;
-
-	int topK;//number of output result
 
 public:
 	Option();
