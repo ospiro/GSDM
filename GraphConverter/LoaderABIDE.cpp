@@ -6,9 +6,6 @@
 using namespace std;
 
 
-
-//TODO: add fileprefix and header
-
 const std::vector<std::string> LoaderABIDE::header = {
 "SITE_ID","SUB_ID","DX_GROUP","DSM_IV_TR","AGE_AT_SCAN","SEX","HANDEDNESS_CATEGORY","HANDEDNESS_SCORES","FIQ","VIQ","PIQ","FIQ_TEST_TYPE",
 "VIQ_TEST_TYPE","PIQ_TEST_TYPE","ADI_R_SOCIAL_TOTAL_A","ADI_R_VERBAL_TOTAL_BV","ADI_RRB_TOTAL_C","ADI_R_ONSET_TOTAL_D","ADI_R_RSRCH_RELIABLE",
@@ -40,7 +37,6 @@ bool LoaderABIDE::checkHeader(const std::string &line){
 
 std::vector<Subject> LoaderABIDE::loadValidList(const std::string &fn, const int nSubject)
 {
-    //TODO: Fill in folder-->filename stuff
     string filename(fn);
 
     if(filename.find("RfMRIMaps_ABIDE_Phenotypic")==string::npos){
@@ -166,5 +162,5 @@ std::tuple<bool, std::string, int> LoaderABIDE::parsePhenotypeLine(const std::st
         p = line.find(',',plast);
         ++count;
     }
-    return make_tuple(reliable,id,dx); //TODO: add std::move
+    return make_tuple(reliable,move(id),dx); 
 }
